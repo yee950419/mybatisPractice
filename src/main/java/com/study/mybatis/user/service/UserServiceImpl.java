@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -21,29 +20,50 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserFindOneDto findUser(Long id) {
 
-        UserFindOneDto result = mapper.findUser(id);
+        try{
+            UserFindOneDto result = mapper.findUser(id);
 
-        return result;
-    }
-
-    @Override
-    @Transactional
-    public int updateUser(UserUpdateDto userUpdateDto) {
-        return 0;
+            if(result == null) {
+                throw new UserException("해당하는 회원이 없습니다.");
+            }
+            return result;
+        }
+        catch(Exception e){
+            throw new UserException("회원 조회 에러");
+        }
     }
 
     @Override
     public List<UserFindOneDto> findAll() {
 
         try{
-
             List<UserFindOneDto> resultList = mapper.findAll();
+
+            if(resultList.size() == 0){
+                throw new UserException("회원이 존재하지 않습니다.");
+            }
             return resultList;
         }
         catch(Exception e) {
-            throw new UserException("회원 수정 에러");
+            throw new UserException("회원 리스트 조회 에러");
         }
 
+    }
+
+    @Override
+    @Transactional
+    public int updateUser(UserUpdateDto userUpdateDto) {
+
+        try{
+            int result = mapper.updateUser(userUpdateDto);
+            if(result == 0) {
+                throw new UserException("수정된 회원이 없습니다.");
+            }
+            return result;
+        }
+        catch(Exception e){
+            throw new UserException("회원 수정 오류");
+        }
     }
 
     @Override
@@ -54,12 +74,29 @@ public class UserServiceImpl implements UserService {
         try {
             int result = mapper.registUser(userRegistDto);
 
+            if(result == 0){
+                throw new UserException("수정된 내역이 없습니다.");
+            }
             return result;
         }
         catch(Exception e) {
             throw new UserException("회원 등록 에러");
         }
+    }
 
+    @Override
+    @Transactional
+    public int deleteUser(Long id) {
 
+        try{
+            int result = mapper.deleteUser(id);
+            if(result == 0) {
+                throw new UserException("삭제된 내역이 없습니다.");
+            }
+            return result;
+        }
+        catch (Exception e) {
+            throw new UserException("회원 삭제 에러");
+        }
     }
 }
