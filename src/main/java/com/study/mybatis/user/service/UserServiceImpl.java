@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public int updateUser(UserUpdateDto userUpdateDto) {
         return 0;
     }
@@ -34,9 +35,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserFindOneDto> findAll() {
 
-        List<UserFindOneDto> resultList = mapper.findAll();
+        try{
 
-        return resultList;
+            List<UserFindOneDto> resultList = mapper.findAll();
+            return resultList;
+        }
+        catch(Exception e) {
+            throw new UserException("회원 수정 에러");
+        }
+
     }
 
     @Override
@@ -45,13 +52,12 @@ public class UserServiceImpl implements UserService {
 
 
         try {
-
             int result = mapper.registUser(userRegistDto);
 
             return result;
         }
         catch(Exception e) {
-            throw new UserException("등록 에러");
+            throw new UserException("회원 등록 에러");
         }
 
 

@@ -21,9 +21,6 @@ public class UserController {
 
         UserFindOneDto result = userService.findUser(id);
 
-        if(result == null){
-            System.out.println("해당 id를 가진 회원이 없습니다.");
-        }
         return result;
     }
 
@@ -39,13 +36,6 @@ public class UserController {
     public int registUser(@RequestBody UserRegistDto userRegistDto) {
 
         int result = userService.registUser(userRegistDto);
-
-        if(result == 1){
-            System.out.println("회원 등록 완료");
-        }
-        else{
-            System.out.println("회원 등록 실패");
-        }
 
         return result;
     }
