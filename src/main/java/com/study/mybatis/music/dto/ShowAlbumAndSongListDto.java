@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ShowAlbumAndSongListDto {
 
-    private Long id;
+//    private Long id;
     private String albumName;
     private String author;
     private List<Song> songList;

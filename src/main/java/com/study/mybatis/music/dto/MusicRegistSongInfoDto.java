@@ -2,14 +2,13 @@ package com.study.mybatis.music.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
-public class Song {
+public class MusicRegistSongInfoDto {
 
-//    private Long id;
-//    private Long albumId;
-    private String songName;
+    private Long songId;
+    private String createAt;
 }

@@ -1,8 +1,6 @@
 package com.study.mybatis.music.service;
 
-import com.study.mybatis.music.dto.MusicRegistAlbumDto;
-import com.study.mybatis.music.dto.MusicRegistSongDto;
-import com.study.mybatis.music.dto.ShowAlbumAndSongListDto;
+import com.study.mybatis.music.dto.*;
 
 import java.util.List;
 
@@ -13,4 +11,8 @@ public interface MusicService {
     int registSong(MusicRegistSongDto musicRegistSongDto);
 
     List<ShowAlbumAndSongListDto> showAllAlbumAndSong();
+
+    int registSongInfo(MusicRegistSongInfoDto musicRegistSongInfoDto);
+
+    ShowSongAndDetailDto showSongAndInfo(Long id);
 }

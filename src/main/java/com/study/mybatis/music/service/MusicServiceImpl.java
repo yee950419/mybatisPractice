@@ -1,8 +1,6 @@
 package com.study.mybatis.music.service;
 
-import com.study.mybatis.music.dto.MusicRegistAlbumDto;
-import com.study.mybatis.music.dto.MusicRegistSongDto;
-import com.study.mybatis.music.dto.ShowAlbumAndSongListDto;
+import com.study.mybatis.music.dto.*;
 import com.study.mybatis.music.error.MusicException;
 import com.study.mybatis.music.mapper.MusicMapper;
 import lombok.RequiredArgsConstructor;
@@ -53,6 +51,30 @@ public class MusicServiceImpl implements MusicService {
         }
         catch (Exception e) {
             throw new MusicException("앨범, 노래 리스트 조회 에러");
+        }
+    }
+
+    @Override
+    public int registSongInfo(MusicRegistSongInfoDto musicRegistSongInfoDto) {
+
+        try{
+            int result = mapper.registSongInfo(musicRegistSongInfoDto);
+            return result;
+        }
+        catch (Exception e) {
+            throw new MusicException("노래 상세정보 등록 에러");
+        }
+    }
+
+    @Override
+    public ShowSongAndDetailDto showSongAndInfo(Long id) {
+
+        try {
+            ShowSongAndDetailDto result = mapper.showSongAndInfo(id);
+            return result;
+        }
+        catch (Exception e) {
+            throw new MusicException("노래 및 상세정보 조회 에러");
         }
     }
 }

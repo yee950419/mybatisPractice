@@ -1,8 +1,6 @@
-package com.study.mybatis.music;
+package com.study.mybatis.music.controller;
 
-import com.study.mybatis.music.dto.MusicRegistAlbumDto;
-import com.study.mybatis.music.dto.MusicRegistSongDto;
-import com.study.mybatis.music.dto.ShowAlbumAndSongListDto;
+import com.study.mybatis.music.dto.*;
 import com.study.mybatis.music.service.MusicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +21,14 @@ public class MusicController {
         return resultList;
     }
 
+    @GetMapping("/song/{id}")
+    public ShowSongAndDetailDto showSongAndInfo(@PathVariable Long id) {
+
+        ShowSongAndDetailDto result = musicService.showSongAndInfo(id);
+
+        return result;
+    }
+
     @PostMapping("/album")
     public int registAlbum(@RequestBody MusicRegistAlbumDto musicRegistAlbumDto) {
 
@@ -35,6 +41,14 @@ public class MusicController {
     public int registSong(@RequestBody MusicRegistSongDto musicRegistSongDto) {
 
         int result = musicService.registSong(musicRegistSongDto);
+
+        return result;
+    }
+
+    @PostMapping("/song_info")
+    public int registSongInfo(@RequestBody MusicRegistSongInfoDto musicRegistSongInfoDto) {
+
+        int result = musicService.registSongInfo(musicRegistSongInfoDto);
 
         return result;
     }
