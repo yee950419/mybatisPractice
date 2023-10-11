@@ -4,6 +4,7 @@
 
 <mapper namespace="com.study.mybatis.user.mapper.UserMapper">
 
+
     <select id="findUser" resultType="com.study.mybatis.user.dto.UserFindOneDto">
         SELECT *
           FROM user
