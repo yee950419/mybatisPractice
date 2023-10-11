@@ -8,6 +8,12 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/test?serverTimezone=UTC&characterEncoding=UTF-8
 
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+
+
