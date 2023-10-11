@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.mybatis.music.mapper.MusicMapper">
+
+<resultMap id="albumAndSongResultMap" type="com.study.mybatis.music.dto.ShowAlbumAndSongListDto">
+    <id column="id" property="id"/>
+    <result column="album_name" property="albumName"/>
+    <result column="author" property="author"/>
+    <collection property="songList" ofType="com.study.mybatis.music.dto.Song">
+        <id column="id" property="id"/>
+        <result column="album_id" property="albumId"/>
+        <result column="song_name" property="songName"/>
+    </collection>
+</resultMap>
+
+<select id="showAllAlbumAndSong" resultMap="albumAndSongResultMap">
+    SELECT
+           a.album_name, a.author, s.id, s.song_name, s.album_id
+      FROM album a
+      JOIN song s ON (a.id = s.album_id)
+</select>
+
+
+<insert id="registAlbum" parameterType="com.study.mybatis.music.dto.MusicRegistAlbumDto">
+    INSERT
+      INTO album
+    (album_name, author)
+    VALUES
+    (#{albumName}, #{author})
+</insert>
+
+<insert id="registSong" parameterType="com.study.mybatis.music.dto.MusicRegistSongDto">
+    INSERT
+      INTO song
+    (album_id, song_name)
+    VALUES
+    (#{albumId}, #{songName})
+</insert>
+
+</mapper>
